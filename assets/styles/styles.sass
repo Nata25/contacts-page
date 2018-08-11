@@ -1,0 +1,24 @@
+@import '_mixins.sass'
+
+@font-face
+  font-family: SuisseIntl
+  src: url('/fonts/SuisseIntl.woff') format('woff')
+  src: url('/fonts/SuisseIntl.woff2') format('woff2')
+
+
+@font-face
+  font-family: SuisseIntl
+  font-weight: 500
+  src: url('/fonts/SuisseIntl-SemiBold.woff') format('woff')
+  src: url('/fonts/SuisseIntl-SemiBold.woff2') format('woff2')
+
+@font-face
+  font-family: SuisseIntl
+  font-weight: 100
+  src: url('/fonts/SuisseIntl-Light.woff') format('woff')
+  src: url('/fonts/SuisseIntl-Light.woff2') format('woff2')
+
+body
+  //font-family: sans-serif
+  @include SuisseIntl
+  font-weight: 100
