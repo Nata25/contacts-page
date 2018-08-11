@@ -8,7 +8,7 @@
 
 @font-face
   font-family: SuisseIntl
-  font-weight: 500
+  font-weight: 300
   src: url('/fonts/SuisseIntl-SemiBold.woff') format('woff')
   src: url('/fonts/SuisseIntl-SemiBold.woff2') format('woff2')
 
@@ -18,7 +18,36 @@
   src: url('/fonts/SuisseIntl-Light.woff') format('woff')
   src: url('/fonts/SuisseIntl-Light.woff2') format('woff2')
 
+\:root
+  --black: #353535
+  --green: #2cc35d
+
 body
-  //font-family: sans-serif
+  color: var(--black)
   @include SuisseIntl
   font-weight: 100
+  font-size: 14px
+
+main
+  padding: 50px
+
+h1, h2, h3
+  font-weight: 100
+  text-transform: capitalize
+
+h1
+  font-size: 40px
+
+h2
+  font-size: 25px
+  margin: 30px auto
+
+p, a
+  line-height: 30px
+
+a, .green
+  color: var(--green)
+
+a
+  text-decoration: none
+  text-transform: uppercase

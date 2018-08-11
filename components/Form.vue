@@ -1,7 +1,7 @@
 <template>
   <section>
     <form>
-      <h2>Contact Us</h2>
+      <h2 id="contactUs">Contact us</h2>
       <input name="name" id="name"/>
       <label for="name">Name</label>
       <input name="phone" id="phone">

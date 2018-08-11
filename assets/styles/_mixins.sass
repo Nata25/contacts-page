@@ -1,2 +1,14 @@
 @mixin SuisseIntl
   font-family: SuisseIntl, sans-serif
+
+@mixin mobile
+  @media screen and (min-width: 560px)
+    @content
+
+@mixin tabletLandscape
+  @media screen and (min-width: 769px)
+    @content
+
+@mixin desktop
+  @media screen and (min-width: 1024px)
+    @content
