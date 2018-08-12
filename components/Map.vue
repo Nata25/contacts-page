@@ -1,37 +1,55 @@
 <template>
-  <section>
-    <h2>Our Offices</h2>
-    <ul>
-      <li>Kyiv</li>
-    </ul>
-    <article>
-      <h3>Global Message Services Ukraine LLC</h3>
-      <p>Address</p>
       <div id="map" class="map"></div>
-    </article>
-  </section>
 </template>
 
 <script>
-  import axios from 'axios';
+  import axios from 'axios'
+  import { mapGetters, mapActions } from 'vuex'
 
   export default {
+    props: {
+      lat: {
+        type: Number,
+        required: true,
+      },
+      lng: {
+        type: Number,
+        required: true,
+      }
+    },
     mounted() {
-      axios.get('/googleMapStyle.json')
-        .then(data => {
-          // The location of Uluru
-          const uluru = {lat: -25.344, lng: 131.036};
-          // The map, centered at Uluru
-          const map = new this.$google.maps.Map(
-            document.getElementById('map'),
-            {
-              zoom: 4,
-              center: uluru,
-              styles: data.data
-            });
-          // The marker, positioned at Uluru
-          const marker = new this.$google.maps.Marker({position: uluru, map: map});
-        })
+      this.renderMap();
+    },
+    watch: {
+      lat: function() {
+        this.renderMap();
+      },
+    },
+    computed: {
+      ...mapGetters({
+        offices: 'getOffices',
+        activeOffice: 'getActiveOffice',
+        activeOfficeId: 'getActiveOfficeId',
+      })
+    },
+    methods: {
+      ...mapActions({
+        activateView: 'setActive'
+      }),
+      renderMap() {
+        axios.get('/googleMapStyle.json')
+          .then(data => {
+            const position = { lat: this.lat, lng: this.lng };
+            const map = new this.$google.maps.Map(
+              document.getElementById('map'),
+              {
+                zoom: 15,
+                center: position,
+                styles: data.data
+              });
+            const marker = new this.$google.maps.Marker({ position, map });
+          })
+      }
     }
   }
 </script>

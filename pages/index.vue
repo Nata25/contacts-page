@@ -2,20 +2,20 @@
   <main>
     <h1>Contacts</h1>
     <BasicInfo />
-    <Map />
+    <Offices />
     <Form />
   </main>
 </template>
 
 <script>
 import BasicInfo from '~/components/BasicInfo.vue'
-import Map from '~/components/Map.vue'
+import Offices from '~/components/Offices.vue'
 import Form from '~/components/Form.vue'
 
 export default {
   components: {
     BasicInfo,
-    Map,
+    Offices,
     Form
   }
 }
