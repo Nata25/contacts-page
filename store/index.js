@@ -45,19 +45,19 @@ const createStore = () => {
           country: 'Spain'
         }
       ],
-      activeOfficeId: 'ny'
+      activeOfficeId: ''
     },
     getters: {
       getOffices: state => state.offices,
-      getActiveOfficeId: state => state.activeOfficeId,
-      getActiveOffice: state => id => {
-        return state.offices.find(office => office.id === id);
+      getActiveOfficeId: (state, getters) => {
+        return state.activeOfficeId.length ? state.activeOfficeId : getters.getOffices[0].id;
+      },
+      getActiveOffice: (state, getters) => id => {
+        const office = state.offices.find(office => office.id === id);
+        return office ? office : getters.getOffices[0]
       }
     },
     actions: {
-      nuxtInitServer() {
-
-      },
       setActive: ({ commit }, id) => {
         commit('setActiveOffice', id);
       }

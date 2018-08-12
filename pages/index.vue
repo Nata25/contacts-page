@@ -1,10 +1,10 @@
 <template>
-  <main>
+  <section>
     <h1>Contacts</h1>
     <BasicInfo />
     <Offices />
     <Form />
-  </main>
+  </section>
 </template>
 
 <script>

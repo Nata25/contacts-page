@@ -18,9 +18,11 @@
   src: url('/fonts/SuisseIntl-Light.woff') format('woff')
   src: url('/fonts/SuisseIntl-Light.woff2') format('woff2')
 
-\:root
-  --black: #353535
-  --green: #2cc35d
+html
+  --black: #212121
+  --white: #fff
+  --green: #3ea962
+  --green-light: #54bb76
 
 body
   color: var(--black)
@@ -28,22 +30,22 @@ body
   font-weight: 100
   font-size: 14px
 
-main
-  padding: 50px
-
 h1, h2, h3
   font-weight: 100
   text-transform: capitalize
 
 h1
-  font-size: 40px
+  margin: 50px auto 0
+  @include maxWidth
+  @include globalPadding
+  font-size: 42px
 
 h2
-  font-size: 25px
-  margin: 30px auto
+  margin-bottom: 34px
+  font-size: 30px
 
-p, a
-  line-height: 30px
+h3
+  font-size: 25px
 
 a, .green
   color: var(--green)

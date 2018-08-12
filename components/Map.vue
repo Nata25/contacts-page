@@ -3,8 +3,8 @@
 </template>
 
 <script>
-  import axios from 'axios'
-  import { mapGetters, mapActions } from 'vuex'
+  import axios from 'axios';
+  import { mapGetters, mapActions } from 'vuex';
 
   export default {
     props: {
@@ -47,7 +47,18 @@
                 center: position,
                 styles: data.data
               });
-            const marker = new this.$google.maps.Marker({ position, map });
+            const circle = this.$google.maps.SymbolPath.CIRCLE;
+            const marker = new this.$google.maps.Marker({
+              position,
+              map,
+              icon: {
+                path: circle,
+                scale: 15,
+                fillColor: '#3ea962',
+                fillOpacity: 1,
+                strokeWeight: 0.4
+              }
+            });
           })
       }
     }
@@ -55,7 +66,14 @@
 </script>
 
 <style lang="sass">
+  @import '~/assets/styles/_mixins.sass'
+
   .map
-    width: 50vw
     height: 300px
+    background-color: var(--black)
+
+  @include desktop
+    .map
+      flex: 1 0 50%
+
 </style>

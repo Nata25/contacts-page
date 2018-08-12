@@ -1,6 +1,3 @@
-@mixin SuisseIntl
-  font-family: SuisseIntl, sans-serif
-
 @mixin mobile
   @media screen and (min-width: 560px)
     @content
@@ -12,3 +9,15 @@
 @mixin desktop
   @media screen and (min-width: 1024px)
     @content
+
+@mixin SuisseIntl
+  font-family: SuisseIntl, sans-serif
+
+@mixin globalPadding
+  padding: 0 20px
+
+  @include desktop
+    padding: 0 50px
+
+@mixin maxWidth
+  max-width: 1200px

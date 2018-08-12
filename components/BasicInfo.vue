@@ -84,12 +84,17 @@
 
   .basic-info
     margin: 0 auto
-    max-width: 1200px
+    @include globalPadding
+    @include maxWidth
+
+  .subsection
+    padding-top: 30px
+    line-height: 30px
 
   .phone
     display: inline-block
     margin-top: 30px
-    margin-bottom: 20px
+    margin-bottom: 30px
     font-size: 25px
 
   .semibold
@@ -107,7 +112,7 @@
       display: flex
       flex-direction: column
       flex-wrap: wrap
-      height: 200px
+      height: 220px
 
       p
         margin-right: 20px
