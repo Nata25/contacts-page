@@ -116,4 +116,11 @@
     color: var(--red)
     line-height: 35px
 
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus
+    border: 1px solid green
+    -webkit-text-fill-color: var(--white)
+    -webkit-box-shadow: 0 0 0 1000px var(--green) inset
+
 </style>
