@@ -21,7 +21,7 @@
         id="name"
         label="Name"
         @blur="checkInput"
-        :errors="errors.name"
+        :errors="errors.name.data"
       />
 
       <FormInput
@@ -30,17 +30,17 @@
         id="phone"
         label="Phone"
         @blur="checkInput"
-        :errors="errors.phone"
+        :errors="errors.phone.data"
         :placeholder="'+380673332211'"
       />
 
       <FormInput
         v-model="email"
-        name="phone"
+        name="email"
         id="email"
         label="Email"
         @blur="checkInput"
-        :errors="errors.email"
+        :errors="errors.email.data"
       />
 
       <input
@@ -58,7 +58,7 @@
       </label>
 
       <button
-        :class="{disabled: !isFormValid || isFormSubmitted }"
+        :class="{disabled: !isFormValid || !isAgreed || isFormSubmitted}"
       >Get in touch</button>
 
     </form>
@@ -80,57 +80,67 @@
         phone: '',
         email: '',
         errors: {
-          name: [
-            {
-              message: 'Name is required',
-              test: function(value) {
-                return value === ''
-              }
-            },
-            {
-              message: 'Name is too short',
-              test: function(value) {
-                return value.length < 5 && value.length > 1
-              }
-            },
-          ],
-          phone: [
-            {
-              message: 'Phone number is required',
-              test: function(value) {
-                return value === ''
-              }
-            },
-            {
-              message: 'You need to provide a valid phone number',
-              test: function(value) {
-                return !/^\+\d{2}0\d{9}$/.test(value) && value.length > 1
-              }
-            },
-          ],
-          email: [
-            {
-              message: 'Email is required',
-              test: function(value) {
-                return value === ''
-              }
-            },
-            {
-              message: 'You need to provide a valid email',
-              test: function(value) {
-                return !/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/.test(value) && value.length > 1
-              }
-            },
-          ]
+          name: {
+            data: [
+              {
+                message: 'Name is required',
+                test: function(value) {
+                  return value === ''
+                },
+              },
+              {
+                message: 'Name is too short',
+                test: function(value) {
+                  return value.length < 5 && value.length > 1
+                },
+              },
+            ],
+            found: true
+          },
+          phone: {
+            data: [
+              {
+                message: 'Phone number is required',
+                test: function(value) {
+                  return value === ''
+                },
+              },
+              {
+                message: 'You need to provide a valid phone number',
+                test: function(value) {
+                  return !/^\+\d{2}0\d{9}$/.test(value) && value.length > 1
+                },
+              },
+            ],
+            found: true
+          },
+          email: {
+            data: [
+              {
+                message: 'Email is required',
+                test: function(value) {
+                  return value === ''
+                },
+              },
+              {
+                message: 'You need to provide a valid email',
+                test: function(value) {
+                  return !/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/.test(value) && value.length > 1
+                },
+              },
+            ],
+            found: true
+          }
         },
         isFormValid: false,
+        isAgreed: true,
         isFormSubmitted: false,
       };
     },
     methods: {
       validate(e) {
         e.preventDefault();
-        if (this.isFormValid) {
+        if (this.isFormValid && this.isAgreed) {
           const formData = new FormData();
           formData.set('name', this.name.toString());
           formData.set('phone', this.phone.toString());
@@ -151,11 +161,14 @@
         }
       },
       checkInput(event) {
-        this.isFormValid = event;
+        this.errors[event.id].found = event.found;
+
+        this.isFormValid = !Object.keys(this.errors).filter(key => {
+          return this.errors[key].found
+        }).length;
       },
       handleCheckbox(event) {
-        const currentValidityStatus = this.isFormValid;
-        this.isFormValid = currentValidityStatus && event.target.checked;
+        this.isAgreed = event.target.checked;
       }
     }
   }
@@ -178,6 +191,7 @@
       font-size: 18px
 
     &__wrapper
+      position: relative
       display: flex
       flex-direction: column
 
@@ -205,7 +219,8 @@
 
   input[type=checkbox]
     position: absolute
-    bottom: 23px
+    bottom: 103px
+    left: 20px
     opacity: 0
 
     &:checked + .contact-form__checkbox

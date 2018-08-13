@@ -30,6 +30,7 @@
     data() {
       return {
         showedErrors: [],
+        isInputTouched: false,
       }
     },
     props: {
@@ -67,7 +68,7 @@
       },
       handleBlur(event) {
         this.showedErrors = this.errors.filter(error => error.test(event.target.value));
-        this.$emit('blur', !this.showedErrors.length);
+        this.$emit('blur', {id: this.name, found: !!this.showedErrors.length});
       }
     }
   }
