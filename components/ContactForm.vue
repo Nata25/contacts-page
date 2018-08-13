@@ -12,6 +12,7 @@
       <form
         method="post"
         @submit="validate"
+        @keydown="handleKeydown"
         action="/"
         class="contact-form__data"
       >
@@ -51,7 +52,6 @@
         id="agree"
         checked
         @change="handleCheckbox"
-        @keydown="handleKeydown"
         @blur="checkInput"
       />
       <label
@@ -62,6 +62,7 @@
       </label>
 
       <button
+        type="submit"
         :class="{disabled: !isFormValid || !isAgreed || isFormSubmitted}"
       >
         Get in touch
@@ -181,10 +182,16 @@
       },
       handleKeydown(event) {
         if (event.which === 13) {
-          event.preventDefault();
-          if (this.$refs.agree.checked) this.$refs.agree.checked = null;
-          else this.$refs.agree.checked = 'checked';
-          this.isAgreed = this.$refs.agree.checked;
+          // checkbox a11y logic
+          if (event.target.getAttribute('id') === 'agree') {
+            event.preventDefault();
+            if (this.$refs.agree.checked) this.$refs.agree.checked = null;
+            else this.$refs.agree.checked = 'checked';
+            this.isAgreed = this.$refs.agree.checked;
+            // prevent from submitting on Enter when in inputs as validation happens on blur
+          } else if (event.target.getAttribute('type') !== 'submit') {
+            event.preventDefault();
+          }
         }
       },
     },
@@ -208,6 +215,7 @@
       color: var(--white)
 
     &__summary
+      margin-bottom: 20px
       font-size: 18px
 
     &__data
@@ -275,7 +283,6 @@
 
   @include desktop
     .contact-form
-
       &__section
         display: flex
         flex-wrap: wrap

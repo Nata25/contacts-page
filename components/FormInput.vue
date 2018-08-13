@@ -59,12 +59,15 @@
       },
     },
     methods: {
+      // hide errors when invalid field is focused
       handleFocus() {
         this.showedErrors = [];
       },
+      // for v-model
       handleChange(event) {
         this.$emit('input', event.target.value);
       },
+      // update error messages and emit event with info about input validity
       handleBlur(event) {
         this.showedErrors = this.errors.filter(error => error.test(event.target.value));
         this.$emit('blur', {id: this.name, found: !!this.showedErrors.length});
