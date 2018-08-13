@@ -44,11 +44,14 @@
       />
 
       <input
+        ref="agree"
         type="checkbox"
         name="agree"
         id="agree"
         checked
         @change="handleCheckbox"
+        @keydown="handleKeydown"
+        @blur="checkInput"
       />
       <label
         class="contact-form__checkbox"
@@ -91,7 +94,7 @@
               {
                 message: 'Name is too short',
                 test: function(value) {
-                  return value.length < 5 && value.length > 1
+                  return value.length < 3 && value.length > 1
                 },
               },
             ],
@@ -161,7 +164,9 @@
         }
       },
       checkInput(event) {
-        this.errors[event.id].found = event.found;
+        if (this.errors[event.id]) {
+          this.errors[event.id].found = event.found;
+        }
 
         this.isFormValid = !Object.keys(this.errors).filter(key => {
           return this.errors[key].found
@@ -169,6 +174,14 @@
       },
       handleCheckbox(event) {
         this.isAgreed = event.target.checked;
+      },
+      handleKeydown(event) {
+        if (event.which === 13) {
+          event.preventDefault();
+          if (this.$refs.agree.checked) this.$refs.agree.checked = null;
+          else this.$refs.agree.checked = 'checked';
+          this.isAgreed = this.$refs.agree.checked;
+        }
       }
     }
   }
@@ -222,6 +235,9 @@
     bottom: 103px
     left: 20px
     opacity: 0
+
+    &:focus + .contact-form__checkbox
+      box-shadow: 0 0 10px 0 var(--blue-grey)
 
     &:checked + .contact-form__checkbox
       color: var(--white)
