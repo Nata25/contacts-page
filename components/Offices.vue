@@ -1,29 +1,31 @@
 <template>
   <section class="offices">
-    <div class="offices__content">
-      <h2>Our offices</h2>
-      <ul class="offices__list">
-        <li class="offices__city"
-            v-for="office in offices"
-            :key="office.id"
-            :class="{ 'green': office.id === activeOfficeId }"
-            @click="activateView(office.id)"
-        >
-          {{ office.city }}
-        </li>
-      </ul>
-      <article class="offices__details">
-        <h3 class="offices__office-title">{{ activeOfficeObj.title }}</h3>
-        <p class="offices__address">{{ activeOfficeObj.address }}
-          <br v-if="activeOfficeObj.zip">{{ activeOfficeObj.zip }}
-          <br>{{ activeOfficeObj.country }}
-        </p>
-      </article>
+    <div class="offices__wrapper">
+      <div class="offices__content">
+        <h2>Our offices</h2>
+        <ul class="offices__list">
+          <li class="offices__city"
+              v-for="office in offices"
+              :key="office.id"
+              :class="{ 'green': office.id === activeOfficeId }"
+              @click="activateView(office.id)"
+          >
+            {{ office.city }}
+          </li>
+        </ul>
+        <article class="offices__details">
+          <h3 class="offices__office-title">{{ activeOfficeObj.title }}</h3>
+          <p class="offices__address">{{ activeOfficeObj.address }}
+            <br v-if="activeOfficeObj.zip">{{ activeOfficeObj.zip }}
+            <br>{{ activeOfficeObj.country }}
+          </p>
+        </article>
+      </div>
+      <Map
+        :lat="activeOfficeObj.lat"
+        :lng="activeOfficeObj.lng"
+      />
     </div>
-    <Map
-      :lat="activeOfficeObj.lat"
-      :lng="activeOfficeObj.lng"
-    />
   </section>
 </template>
 
@@ -49,8 +51,8 @@
     methods: {
       ...mapActions({
         activateView: 'setActive'
-      })
-    }
+      }),
+    },
   }
 </script>
 
@@ -60,9 +62,13 @@
   .offices
     background-color: var(--black)
 
+    &__wrapper
+      @include maxWidth
+
     &__content
       @include globalPadding
       padding-top: 50px
+      padding-bottom: 50px
       color: var(--white)
 
     &__list
@@ -87,18 +93,19 @@
 
     &__address
       margin-top: 30px
-      padding-bottom: 70px
       font-size: 12px
       line-height: 20px
 
   @include desktop
     .offices
-      display: flex
-      align-items: stretch
-      height: 400px
+      &__wrapper
+        display: flex
+        align-items: stretch
+        height: 400px
 
       &__content
         padding-top: 70px
+        padding-bottom: 0
         flex-basis: 50%
 
 </style>

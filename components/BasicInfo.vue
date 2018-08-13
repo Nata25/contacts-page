@@ -1,11 +1,11 @@
 <template>
   <div class="basic-info">
-    <article class="subsection">
+    <article class="basic-info__subsection">
       <h2>
         <span class="green">GMS</span>
         Headquarters
       </h2>
-      <div class="content">
+      <div class="basic-info__content">
         <p>Global message services Ukraine LLC</p>
         <p>Bundesstrasse 5 | 3rd Floor</p>
         <p>6300 Zug</p>
@@ -47,7 +47,7 @@
       </div>
     </article>
 
-    <article class="subsection">
+    <article class="basic-info__subsection">
       <h2>Technical support <span class="green">24/7</span></h2>
       <div class="content">
         <p>GMS understands that it can be hard to follow all new technologies.
@@ -55,7 +55,7 @@
           your operator`s business earn more and better through our best practices.
         </p>
 
-        <a class="phone"
+        <a class="basic-info__phone"
            href="tel:+41415446200"
         >
           +41 41 544 62 00
@@ -70,8 +70,8 @@
   export default {
     data() {
       return {
-        isMobile: false
-      }
+        isMobile: false,
+      };
     },
     mounted() {
       this.isMobile = window.innerWidth < 560
@@ -83,36 +83,32 @@
   @import '~/assets/styles/_mixins.sass'
 
   .basic-info
-    margin: 0 auto
     @include globalPadding
     @include maxWidth
 
-  .subsection
-    padding-top: 30px
-    line-height: 30px
+    &__subsection
+      padding-top: 30px
+      line-height: 30px
 
-  .phone
-    display: inline-block
-    margin-top: 30px
-    margin-bottom: 30px
-    font-size: 25px
-
-  .semibold
-    font-weight: 300
+    &__phone
+      display: inline-block
+      margin-top: 30px
+      margin-bottom: 30px
+      font-size: 25px
 
   @include mobile
     .basic-info
       display: flex
       flex-wrap: wrap
 
-    .subsection
-      flex-basis: 100%
+      &__subsection
+        flex-basis: 100%
 
-    .content
-      display: flex
-      flex-direction: column
-      flex-wrap: wrap
-      height: 220px
+      &__content
+        display: flex
+        flex-direction: column
+        flex-wrap: wrap
+        height: 220px
 
       p
         margin-right: 20px
@@ -121,17 +117,19 @@
     p
       font-size: 16px
 
-    .content
+    .basic-info__content
       display: flex
       flex-direction: column
       flex-wrap: wrap
 
   @include desktop
-    .subsection
-      flex-basis: 45%
-
     .basic-info
+      padding-bottom: 50px
       justify-content: space-between
+
+      &__subsection
+        padding-top: 40px
+        flex-basis: 45%
 
 </style>
 

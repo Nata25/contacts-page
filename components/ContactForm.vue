@@ -1,19 +1,20 @@
 <template>
-  <section class="contact-form">
-    <h2 class="contact-form__title"
-        id="contactUs"
-    >
-      Contact us
-    </h2>
-    <p class="contact-form__summary">
-      Please tell us more about your request and give us info about your company and country.
-    </p>
-    <form
-      method="post"
-      @submit="validate"
-      action="/"
-      class="contact-form__wrapper"
-    >
+  <div class="contact-form">
+    <section class="contact-form__section">
+      <h2 class="contact-form__title"
+          id="contactUs"
+      >
+        Contact us
+      </h2>
+      <p class="contact-form__summary">
+        Please tell us more about your request and give us info about your company and country.
+      </p>
+      <form
+        method="post"
+        @submit="validate"
+        action="/"
+        class="contact-form__data"
+      >
 
       <FormInput
         v-model="name"
@@ -62,10 +63,13 @@
 
       <button
         :class="{disabled: !isFormValid || !isAgreed || isFormSubmitted}"
-      >Get in touch</button>
+      >
+        Get in touch
+      </button>
 
-    </form>
-  </section>
+      </form>
+    </section>
+  </div>
 </template>
 
 <script>
@@ -98,7 +102,7 @@
                 },
               },
             ],
-            found: true
+            found: true,
           },
           phone: {
             data: [
@@ -115,7 +119,7 @@
                 },
               },
             ],
-            found: true
+            found: true,
           },
           email: {
             data: [
@@ -132,8 +136,8 @@
                 },
               },
             ],
-            found: true
-          }
+            found: true,
+          },
         },
         isFormValid: false,
         isAgreed: true,
@@ -182,8 +186,8 @@
           else this.$refs.agree.checked = 'checked';
           this.isAgreed = this.$refs.agree.checked;
         }
-      }
-    }
+      },
+    },
   }
 </script>
 
@@ -191,11 +195,14 @@
   @import '~/assets/styles/_mixins.sass'
 
   .contact-form
-    @include globalPadding
-    padding-top: 50px
     padding-bottom: 50px
     background-image: url('~/static/img/pattern.png')
     background-size: 100px
+
+    &__section
+      @include maxWidth
+      @include globalPadding
+      padding-top: 50px
 
     &__title
       color: var(--white)
@@ -203,7 +210,7 @@
     &__summary
       font-size: 18px
 
-    &__wrapper
+    &__data
       position: relative
       display: flex
       flex-direction: column
@@ -268,21 +275,23 @@
 
   @include desktop
     .contact-form
-      display: flex
-      flex-wrap: wrap
-      padding-top: 70px
-      padding-bottom: 70px
+
+      &__section
+        display: flex
+        flex-wrap: wrap
+        padding-top: 70px
+        padding-bottom: 70px
 
       &__title
         flex: 1 0 100%
 
-      &__wrapper
+      &__data
         order: 1
         flex: 1 1 40%
 
       &__summary
         margin: 20px 0 0 50px
         order: 2
-        flex: 1 0 50%
+        flex: 1 0 40%
 
 </style>

@@ -1,8 +1,8 @@
 <template>
   <section>
     <h1>Contacts</h1>
-    <!--<BasicInfo />-->
-    <!--<Offices />-->
+    <BasicInfo />
+    <Offices />
     <ContactForm />
   </section>
 </template>
@@ -16,8 +16,8 @@ export default {
   components: {
     BasicInfo,
     Offices,
-    ContactForm
-  }
+    ContactForm,
+  },
 }
 </script>
 

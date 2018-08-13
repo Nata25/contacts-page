@@ -30,7 +30,6 @@
     data() {
       return {
         showedErrors: [],
-        isInputTouched: false,
       }
     },
     props: {
@@ -69,8 +68,8 @@
       handleBlur(event) {
         this.showedErrors = this.errors.filter(error => error.test(event.target.value));
         this.$emit('blur', {id: this.name, found: !!this.showedErrors.length});
-      }
-    }
+      },
+    },
   }
 </script>
 
@@ -78,6 +77,7 @@
   .input-container
     display: flex
     flex-flow: row-reverse
+    max-width: 500px
 
     label
       padding-right: 10px
