@@ -1,3 +1,9 @@
+const routerBase = process.env.DEPLOY_ENV === 'GH_PAGES' ? {
+  router: {
+    base: '/contacts-page/'
+  }
+} : {};
+
 module.exports = {
   /*
   ** Headers of the page
@@ -27,6 +33,7 @@ module.exports = {
   ** Customize the progress bar color
   */
   loading: { color: '#3B8070' },
+  ...routerBase,
   /*
   ** Build configuration
   */

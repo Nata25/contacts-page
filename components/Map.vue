@@ -37,7 +37,7 @@
         activateView: 'setActive'
       }),
       renderMap() {
-        axios.get('/googleMapStyle.json')
+        axios.get('googleMapStyle.json')
           .then(data => {
             const position = { lat: this.lat, lng: this.lng };
             const map = new this.$google.maps.Map(
